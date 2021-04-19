@@ -3,7 +3,7 @@
 space_name = "data-set-test-1000genomes"
 
 # Number of datasets
-nr_datasets = 50
+nr_datasets = 50000
 
 # Number of hardlinked files for a dataset
 nr_hardlinks = 10
@@ -12,7 +12,7 @@ nr_hardlinks = 10
 list_file_name = "file-ids.csv"
 
 # Upper limit of the number of files to be put in the list
-files_limit = 1000
+files_limit = 30000
 
 # oneprovider domain address
 provider = "otc-test-2.hub.archiver-otc.eu"

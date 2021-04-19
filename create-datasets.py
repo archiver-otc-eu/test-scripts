@@ -11,7 +11,6 @@ myheaders = {"X-Auth-Token": token }
 
 def ds_create(s, ds_name, parent_id, nr_of_hardlinks):
     r = s.post("https://"+provider+"/api/v3/oneprovider/data/"+parent_id+"/children?name="+ds_name+"&type=DIR", headers=myheaders)
-    #r.raise_for_status()
     if r.status_code != 201:
         print("REST call failed")
     ds_id=r.json()['fileId']
@@ -47,5 +46,5 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=25) as executor:
         ct = time()
         if ct-pt > 1:
             pt=ct
-            print(str(ds_count)+" datasets in "+str(ct-st)+" seconds. Rate: "+str(ds_count/(ct-st))+" ds/s")
-print(str(ds_count)+" datasets in "+str(ct-st)+" seconds. Rate: "+str(ds_count/(ct-st))+" ds/s")
+            print("\r"+str(ds_count)+" datasets in "+str(ct-st)+" seconds. Rate: "+str(ds_count/(ct-st))+" ds/s", end='', flush=True)
+print("\r"+str(ds_count)+" datasets in "+str(ct-st)+" seconds. Rate: "+str(ds_count/(ct-st))+" ds/s")

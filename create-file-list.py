@@ -1,15 +1,18 @@
 #!/usr/bin/python3
+
+# Run with:
+
 from fs.walk import Walker
 from fs.onedatafs import OnedataFS
 from time import time
 import os
 from vars import *
 
-odfs = OnedataFS(provider, token, force_proxy_io=True)
+os.chdir("/root") # Comment this line if runing outside of docker
+odfs = OnedataFS(provider, token, force_proxy_io=True, cli_args="--communicator-pool-size=20 --communicator-thread-count=8")
 space = odfs.opendir(space_name)
 st = ct = pt = time()
-file_count = 0
-os.chdir("/root")
+file_count = 0 
 f = open(list_file_name, "w")
 print("Writing file list to "+list_file_name, flush=True) 
 for path in space.walk.files(filter=['*']):
