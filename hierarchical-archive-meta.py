@@ -7,7 +7,7 @@ from time import time
 import concurrent.futures
 from vars import *
 
-myheaders = {"X-Auth-Token": token }
+myheaders = {"X-Auth-Token": op_token }
 
 def create_file_with_metadata(s, file_name, parent_id, file_content, json_meta):
     myheaders["Content-Type"] = "application/octet-stream"
