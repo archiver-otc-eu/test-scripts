@@ -29,12 +29,15 @@ def lookup_rnd_meta(s):
     creator_body='{\\"from\\":0,\\"size\\":10,\\"sort\\":[{\\"_score\\":\\"desc\\"}],\\"query\\":{\\"bool\\":{\\"must\\":[{\\"simple_query_string\\":{\\"query\\":\\"'+cr+'\\",\\"fields\\":[\\"creator\\"],\\"default_operator\\":\\"and\\"}}]}}}'
 
     t1 = time()
-    r = s.post("https://"+onezone+"/api/v3/onezone/harvesters/"+harvester_id+"/indices/"+index_id+"/query", headers=myheaders, data='{"method":"post","path":"_search","body":"'+creator_body+'"}')
-    t2 = time()
-    if r.status_code != 200:
-        print("Lookup request REST call failed with code:", r.status_code)
-    return(t2-t1)
-
+    try:
+        r = s.post("https://"+onezone+"/api/v3/onezone/harvesters/"+harvester_id+"/indices/"+index_id+"/query", headers=myheaders, data='{"method":"post","path":"_search","body":"'+creator_body+'"}')
+        t2 = time()
+        if r.status_code != 200:
+            print("Lookup request REST call failed with code:", r.status_code)
+        return(t2-t1)
+    except (requests.exceptions.ConnectionError) as e:
+        print("Time:", round(time()-t1,4), ", My exception:", e)
+        return(time()-t1)
 
 
 def send_graphite(graphite_host, graphite_port, metrics):
