@@ -90,7 +90,7 @@ else:
     print(algorithm+" not supported")
     quit()
 print(hash_key, hash_value)
-with open(file_to_upload) as read_file:
+with open(file_to_upload,"rb") as read_file:
     odfs.writefile(upload_path, read_file)
 odfs.setxattr(upload_path, hash_key, "\""+hash_value+"\"")
 del odfs
